@@ -255,11 +255,8 @@ function selectPeriod(p) {
   }
 }
 function updatePeriodBadge() {}
-<div style="display:flex;gap:8px;margin-bottom:12px;">
-    <button id="btnMorning" onclick="selectPeriod('morning')" style="flex:1;padding:10px;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid rgba(251,191,36,.5);background:rgba(251,191,36,.15);color:var(--gold);transition:all .2s;">&#9728; صباح</button>
-    <button id="btnEvening" onclick="selectPeriod('evening')" style="flex:1;padding:10px;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid var(--border);background:var(--card2);color:var(--muted);transition:all .2s;">&#127769; مساء</button>
-  </div>
-  <input type="hidden" id="periodBadge" value="morning">
+function updatePeriodBadge() {
+  selectPeriod(_selectedPeriod || 'morning');
 
 }
 

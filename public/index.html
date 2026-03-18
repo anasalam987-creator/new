@@ -157,7 +157,11 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       <div style="font-size:.85rem;color:var(--green);font-weight:700;">جاري تحليل الصورة...</div>
     </div>
   </div>
-  <div id="periodBadge" class="morning-badge">صباح - سيصنف حسب وقت الادخال</div>
+<div style="display:flex;gap:8px;margin-bottom:12px;">
+    <button id="btnMorning" onclick="selectPeriod('morning')" style="flex:1;padding:10px;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid rgba(251,191,36,.5);background:rgba(251,191,36,.15);color:var(--gold);transition:all .2s;">&#9728; صباح</button>
+    <button id="btnEvening" onclick="selectPeriod('evening')" style="flex:1;padding:10px;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid var(--border);background:var(--card2);color:var(--muted);transition:all .2s;">&#127769; مساء</button>
+  </div>
+  <input type="hidden" id="periodBadge" value="morning">
   <div class="form-grid">
     <div class="fg"><label>وقت الطلب</label><input type="text" id="fTime" placeholder="يستخرج من الصورة" readonly></div>
     <div class="fg"><label>السعر (ر.س)</label><input type="number" id="fPrice" placeholder="56.33" step="0.01"></div>
@@ -228,11 +232,35 @@ async function loadTrips(){
   }catch(e){console.error('Load error:',e);}
 }
 
-function updatePeriodBadge(){
-  var h=new Date().getHours();
-  var el=document.getElementById('periodBadge');
-  if(h<12){el.className='morning-badge';el.textContent='صباح - سيصنف حسب وقت الادخال';}
-  else{el.className='evening-badge';el.textContent='مساء - سيصنف حسب وقت الادخال';}
+var _selectedPeriod = 'morning';
+function selectPeriod(p) {
+  _selectedPeriod = p;
+  document.getElementById('periodBadge').value = p;
+  var bm = document.getElementById('btnMorning');
+  var be = document.getElementById('btnEvening');
+  if (p === 'morning') {
+    bm.style.border = '2px solid rgba(251,191,36,.6)';
+    bm.style.background = 'rgba(251,191,36,.2)';
+    bm.style.color = 'var(--gold)';
+    be.style.border = '2px solid var(--border)';
+    be.style.background = 'var(--card2)';
+    be.style.color = 'var(--muted)';
+  } else {
+    be.style.border = '2px solid rgba(168,85,247,.6)';
+    be.style.background = 'rgba(168,85,247,.15)';
+    be.style.color = 'var(--purple)';
+    bm.style.border = '2px solid var(--border)';
+    bm.style.background = 'var(--card2)';
+    bm.style.color = 'var(--muted)';
+  }
+}
+function updatePeriodBadge() {}
+<div style="display:flex;gap:8px;margin-bottom:12px;">
+    <button id="btnMorning" onclick="selectPeriod('morning')" style="flex:1;padding:10px;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid rgba(251,191,36,.5);background:rgba(251,191,36,.15);color:var(--gold);transition:all .2s;">&#9728; صباح</button>
+    <button id="btnEvening" onclick="selectPeriod('evening')" style="flex:1;padding:10px;border-radius:10px;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:2px solid var(--border);background:var(--card2);color:var(--muted);transition:all .2s;">&#127769; مساء</button>
+  </div>
+  <input type="hidden" id="periodBadge" value="morning">
+
 }
 
 function handleDrop(e){
@@ -320,7 +348,7 @@ async function addTrip(){
   if(!price||price<=0||!dist||dist<=0)return;
   var now=new Date();
   var h=now.getHours();
-  var period=(h<12)?'morning':'evening';
+  var period = _selectedPeriod || ((h < 12) ? 'morning' : 'evening');
   var displayTime=timeStr||(String(h).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0'));
   var trip={price:price,rating:rating,service:service,tripType:tripType,dist:dist,pickup:pickup,route:route,ts:now.getTime(),day:now.getDay(),dayName:DAYS[now.getDay()],period:period,timeStr:displayTime};
   try{

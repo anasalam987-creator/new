@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التحليلات العميقة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060810;--card:#111320;--card2:#161826;--green:#00e5a0;--blue:#3b82f6;--orange:#f97316;--red:#ef4444;--gold:#fbbf24;--purple:#a855f7;--text:#f1f5f9;--muted:#64748b;--border:rgba(255,255,255,0.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Tajawal,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,160,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:20px 16px 80px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.nav-back{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:8px 16px;font-family:Tajawal,sans-serif;font-size:.85rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s;}
+.nav-back:hover{border-color:var(--green);color:var(--green);}
+.nav-links{display:flex;gap:6px;}
+.nav-link{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:6px 12px;font-size:.75rem;font-weight:700;text-decoration:none;transition:all .2s;}
+.nav-link:hover,.nav-link.active{border-color:var(--green);color:var(--green);}
+.hero{text-align:center;padding:14px 0 20px;position:relative;}
+.hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:160px;background:radial-gradient(ellipse,rgba(0,229,160,0.1) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:3px;color:var(--green);text-transform:uppercase;border:1px solid rgba(0,229,160,0.3);padding:4px 14px;border-radius:20px;margin-bottom:8px;background:rgba(0,229,160,0.05);}
+.hero h1{font-size:clamp(1.3rem,4vw,1.9rem);font-weight:900;margin-bottom:4px;}
+.hero h1 span{color:var(--green);}
+.hero p{color:var(--muted);font-size:.8rem;}
+.data-badge{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:12px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:var(--blue);margin-top:6px;}
+.sec{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:22px 0 10px;display:flex;align-items:center;gap:10px;}
+.sec .d{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
+.predict-hero{background:linear-gradient(135deg,rgba(0,229,160,0.08),rgba(0,229,160,0.02));border:1px solid rgba(0,229,160,0.2);border-radius:20px;padding:20px;margin-bottom:12px;animation:fadeUp .4s ease both;}
+.ph-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.ph-title{font-size:1rem;font-weight:900;}
+.ph-time{font-size:.75rem;color:var(--green);font-weight:700;background:rgba(0,229,160,0.1);padding:4px 10px;border-radius:12px;}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.prob-card{background:var(--card);border-radius:12px;padding:14px;text-align:center;border:1px solid var(--border);}
+.prob-pct{font-size:1.8rem;font-weight:900;line-height:1;}
+.prob-lbl{font-size:.65rem;color:var(--muted);margin-top:4px;}
+.prob-val{font-size:.78rem;font-weight:700;margin-top:2px;}
+.prob-bar{height:4px;background:rgba(255,255,255,0.06);border-radius:4px;margin-top:8px;overflow:hidden;}
+.prob-fill{height:100%;border-radius:4px;transition:width 1s ease;}
+.hourly-chart{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;}
+.hc-bars{display:flex;align-items:flex-end;gap:3px;height:80px;margin-bottom:6px;}
+.hc-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;height:100%;justify-content:flex-end;}
+.hc-bar{width:100%;border-radius:3px 3px 0 0;min-height:2px;}
+.hc-bar.now{outline:2px solid var(--green);outline-offset:1px;}
+.hc-lbl{font-size:.55rem;color:var(--muted);}
+.hc-legend{display:flex;gap:12px;justify-content:center;margin-top:6px;}
+.hc-leg{display:flex;align-items:center;gap:4px;font-size:.65rem;color:var(--muted);}
+.hc-leg-dot{width:8px;height:8px;border-radius:2px;}
+.pattern-list{display:flex;flex-direction:column;gap:6px;}
+.pattern-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;animation:fadeUp .3s ease both;}
+.pattern-item.hot{border-color:rgba(0,229,160,0.25);background:rgba(0,229,160,0.03);}
+.pi-icon{font-size:1.1rem;flex-shrink:0;}
+.pi-info{flex:1;}
+.pi-title{font-size:.82rem;font-weight:800;margin-bottom:2px;}
+.pi-desc{font-size:.7rem;color:var(--muted);line-height:1.5;}
+.pi-right{text-align:left;flex-shrink:0;}
+.pi-prob{font-size:1rem;font-weight:900;}
+.pi-lbl{font-size:.62rem;color:var(--muted);}
+.day-predict{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.dp-day{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 4px;text-align:center;}
+.dp-day.today{border-color:var(--green);}
+.dp-name{font-size:.6rem;font-weight:700;color:var(--muted);margin-bottom:4px;}
+.dp-score{font-size:.75rem;font-weight:900;}
+.dp-bar{height:3px;border-radius:2px;margin-top:4px;}
+.dp-avg{font-size:.6rem;color:var(--muted);margin-top:3px;}
+.eff-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;animation:fadeUp .4s ease both;}
+.eff-main{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.eff-big{background:linear-gradient(135deg,rgba(0,229,160,0.1),rgba(0,229,160,0.03));border:1px solid rgba(0,229,160,0.2);border-radius:12px;padding:16px;text-align:center;}
+.eff-big-val{font-size:2rem;font-weight:900;color:var(--green);}
+.eff-big-lbl{font-size:.7rem;color:var(--muted);margin-top:4px;}
+.eff-compare{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.eff-comp-item{background:var(--card2);border-radius:8px;padding:10px;text-align:center;}
+.eff-comp-val{font-size:.9rem;font-weight:800;}
+.eff-comp-lbl{font-size:.62rem;color:var(--muted);margin-top:2px;}
+.eff-breakdown{display:flex;flex-direction:column;gap:6px;}
+.eff-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.eff-row:last-child{border-bottom:none;}
+.eff-row-lbl{font-size:.75rem;color:var(--muted);}
+.eff-row-val{font-size:.82rem;font-weight:800;}
+.route-grid{display:flex;flex-direction:column;gap:8px;}
+.route-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;animation:fadeUp .4s ease both;}
+.route-card.best{border-color:rgba(0,229,160,0.3);}
+.route-header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.route-arrow{font-size:.8rem;color:var(--muted);flex-shrink:0;}
+.route-from{font-size:.82rem;font-weight:800;flex:1;}
+.route-to{font-size:.82rem;font-weight:800;flex:1;text-align:left;}
+.route-best-badge{font-size:.6rem;font-weight:800;background:var(--green);color:#000;padding:2px 8px;border-radius:4px;}
+.route-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.rs{background:var(--card2);padding:10px 6px;text-align:center;}
+.rs-val{font-size:.82rem;font-weight:800;}
+.rs-lbl{font-size:.6rem;color:var(--muted);margin-top:2px;}
+.be-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;animation:fadeUp .4s ease both;}
+.be-visual{position:relative;height:60px;background:var(--card2);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.be-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));border-radius:10px;transition:width 1s ease;}
+.be-labels{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-bottom:14px;}
+.be-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.be-stat{background:var(--card2);border-radius:10px;padding:12px;text-align:center;}
+.be-stat-val{font-size:1rem;font-weight:900;}
+.be-stat-lbl{font-size:.62rem;color:var(--muted);margin-top:3px;}
+.be-insight{background:rgba(0,229,160,0.04);border:1px solid rgba(0,229,160,0.15);border-radius:10px;padding:12px;font-size:.75rem;color:var(--muted);line-height:1.6;margin-top:10px;border-right:3px solid var(--green);}
+.no-data{text-align:center;padding:32px;color:var(--muted);}
+.no-data-icon{font-size:2rem;margin-bottom:8px;opacity:.4;}
+.loading{display:flex;align-items:center;justify-content:center;padding:40px;gap:10px;color:var(--muted);}
+.spin{width:22px;height:22px;border:2px solid rgba(0,229,160,.2);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="nav">
+  <a href="/" class="nav-back">&#8594; الرحلات</a>
+  <div class="nav-links">
+    <a href="/strategy" class="nav-link">&#128200; الاستراتيجية</a>
+    <a href="/insights" class="nav-link active">&#129504; التنبؤ</a>
+  </div>
+</div>
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">DEEP INSIGHTS - تحليلات عميقة</div>
+  <h1>محرك <span>التنبؤ</span></h1>
+  <p>يحلل انماط بياناتك ويتنبا بافضل الاوقات والمسارات</p>
+  <div class="data-badge"><span>&#128209;</span> <span id="dataBadge">جاري تحميل البيانات...</span></div>
+</div>
+<div class="sec"><div class="d"></div> احتمالية الرحلة الجيدة الان</div>
+<div class="predict-hero">
+  <div class="ph-top">
+    <div class="ph-title">&#129504; محرك التنبؤ</div>
+    <div class="ph-time" id="predTime">--:--</div>
+  </div>
+  <div class="prob-grid" id="probGrid">
+    <div class="loading" style="grid-column:1/-1"><div class="spin"></div></div>
+  </div>
+</div>
+<div class="sec"><div class="d"></div> افضل الساعات اليوم</div>
+<div class="hourly-chart">
+  <div class="hc-bars" id="hourlyBars"></div>
+  <div class="hc-legend">
+    <div class="hc-leg"><div class="hc-leg-dot" style="background:var(--green)"></div> متوسط السعر</div>
+    <div class="hc-leg"><div class="hc-leg-dot" style="background:var(--border);outline:1px solid var(--green)"></div> الساعة الحالية</div>
+  </div>
+</div>
+<div class="sec"><div class="d"></div> الانماط المكتشفة من بياناتك</div>
+<div class="pattern-list" id="patternList"><div class="loading"><div class="spin"></div></div></div>
+<div class="sec"><div class="d"></div> توقع ايام الاسبوع</div>
+<div class="day-predict" id="dayPredict"></div>
+<div class="sec"><div class="d"></div> كفاءة وقتك الحقيقية</div>
+<div class="eff-card" id="effCard"><div class="loading"><div class="spin"></div></div></div>
+<div class="sec"><div class="d"></div> مقارنة المسارات - اي طريق اربح؟</div>
+<div class="route-grid" id="routeGrid"><div class="loading"><div class="spin"></div></div></div>
+<div class="sec"><div class="d"></div> نقطة التعادل اليومية</div>
+<div class="be-card" id="breakevenCard"><div class="loading"><div class="spin"></div></div></div>
+</div>
+<script>
+var BASE=window.location.origin;
+var DAYS_AR=['الاحد','الاثنين','الثلاثاء','الاربعاء','الخميس','الجمعة','السبت'];
+var DAYS_SHORT=['ح','ن','ث','ر','خ','ج','س'];
+var TIME_SLOTS=[
+  {id:'dawn',label:'فجر',range:'4-6 ص',h:[4,5]},
+  {id:'morning',label:'صباح',range:'6-10 ص',h:[6,7,8,9]},
+  {id:'midday',label:'ضحى',range:'10-12 ص',h:[10,11]},
+  {id:'noon',label:'ظهر',range:'12-3 م',h:[12,13,14]},
+  {id:'after',label:'عصر',range:'3-6 م',h:[15,16,17]},
+  {id:'evening',label:'مساء',range:'6-12 م',h:[18,19,20,21,22,23]}
+];
+function getSlotId(ts){
+  if(!ts)return null;
+  var h=parseInt((ts+'').split(':')[0]);
+  if(isNaN(h))return null;
+  for(var i=0;i<TIME_SLOTS.length;i++)if(TIME_SLOTS[i].h.indexOf(h)!==-1)return TIME_SLOTS[i].id;
+  return 'evening';
+}
+function getCurSlot(){
+  var h=new Date().getHours();
+  for(var i=0;i<TIME_SLOTS.length;i++)if(TIME_SLOTS[i].h.indexOf(h)!==-1)return TIME_SLOTS[i];
+  return TIME_SLOTS[TIME_SLOTS.length-1];
+}
+function updateTime(){var now=new Date();var el=document.getElementById('predTime');if(el)el.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');}
+setInterval(updateTime,1000);updateTime();
+
+function buildPrediction(trips){
+  if(!trips.length){document.getElementById('probGrid').innerHTML='<div class="no-data" style="grid-column:1/-1"><div class="no-data-icon">&#128202;</div>اضف رحلات لتفعيل محرك التنبؤ</div>';return;}
+  var curSlot=getCurSlot();
+  var sameSlotTrips=trips.filter(function(t){return getSlotId(t.timeStr)===curSlot.id;});
+  var highTrips=trips.filter(function(t){return t.price>=60;});
+  var sameSlotHigh=sameSlotTrips.filter(function(t){return t.price>=60;});
+  var slotProb=sameSlotTrips.length>0?Math.round((sameSlotHigh.length/sameSlotTrips.length)*100):Math.round((highTrips.length/trips.length)*100);
+  var slotAvg=sameSlotTrips.length?sameSlotTrips.reduce(function(s,t){return s+t.price;},0)/sameSlotTrips.length:0;
+  var airT=trips.filter(function(t){return t.tripType==='airport';});
+  var airProb=Math.min(Math.round((airT.length/trips.length)*100*1.2),85);
+  var airAvg=airT.length?airT.reduce(function(s,t){return s+t.price;},0)/airT.length:0;
+  var exclT=trips.filter(function(t){return t.tripType==='exclusive';});
+  var exclProb=Math.round((exclT.length/trips.length)*100);
+  var exclAvg=exclT.length?exclT.reduce(function(s,t){return s+t.price;},0)/exclT.length:0;
+  slotProb=Math.min(Math.max(slotProb,5),92);
+  var cards=[
+    {label:'رحلة 60+ ر.س الان',prob:slotProb,val:slotAvg?slotAvg.toFixed(0)+' ر.س متوسط':curSlot.range,c:'var(--green)'},
+    {label:'رحلة مطار اليوم',prob:airProb,val:airAvg?airAvg.toFixed(0)+' ر.س متوسط':'لا بيانات',c:'var(--orange)'},
+    {label:'رحلة حصري الان',prob:exclProb,val:exclAvg?exclAvg.toFixed(0)+' ر.س متوسط':'لا بيانات',c:'var(--blue)'}
+  ];
+  document.getElementById('probGrid').innerHTML=cards.map(function(c,i){
+    return '<div class="prob-card" style="animation-delay:'+(i*0.1)+'s;animation:fadeUp .4s ease both">'
+      +'<div class="prob-pct" style="color:'+c.c+'">'+c.prob+'%</div>'
+      +'<div class="prob-lbl">'+c.label+'</div>'
+      +'<div class="prob-val" style="color:'+c.c+'">'+c.val+'</div>'
+      +'<div class="prob-bar"><div class="prob-fill" style="width:'+c.prob+'%;background:'+c.c+'"></div></div>'
+      +'</div>';
+  }).join('');
+}
+
+function buildHourlyChart(trips){
+  var now=new Date(),curH=now.getHours();
+  var hd={};for(var i=0;i<24;i++)hd[i]={total:0,count:0};
+  trips.forEach(function(t){if(!t.timeStr)return;var h=parseInt((t.timeStr+'').split(':')[0]);if(isNaN(h))return;hd[h].total+=t.price;hd[h].count++;});
+  var maxAvg=0;for(var h=0;h<24;h++){var a=hd[h].count?hd[h].total/hd[h].count:0;if(a>maxAvg)maxAvg=a;}
+  var hours=[];for(var h=5;h<24;h++)hours.push(h);
+  document.getElementById('hourlyBars').innerHTML=hours.map(function(h){
+    var d=hd[h];var avg=d.count?d.total/d.count:0;var pct=maxAvg>0?Math.round((avg/maxAvg)*100):0;
+    var isNow=h===curH;
+    var color=pct>70?'var(--green)':pct>40?'var(--gold)':'var(--muted)';
+    return '<div class="hc-bar-wrap">'
+      +'<div class="hc-bar'+(isNow?' now':'')+'" style="height:'+Math.max(pct,4)+'%;background:'+color+'"></div>'
+      +'<div class="hc-lbl">'+(isNow?'|':h%3===0?h:'')+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function buildPatterns(trips){
+  if(!trips.length){document.getElementById('patternList').innerHTML='<div class="no-data"><div class="no-data-icon">&#128269;</div>لا توجد انماط بعد - اضف المزيد</div>';return;}
+  var patterns=[];
+  var dayStats={};
+  trips.forEach(function(t){if(!dayStats[t.day])dayStats[t.day]={total:0,count:0};dayStats[t.day].total+=t.price;dayStats[t.day].count++;});
+  var bestDay=null,bestDayAvg=0;
+  Object.keys(dayStats).forEach(function(d){var a=dayStats[d].total/dayStats[d].count;if(a>bestDayAvg){bestDayAvg=a;bestDay=parseInt(d);}});
+  if(bestDay!==null)patterns.push({icon:'&#128197;',title:'افضل يوم لك: '+DAYS_AR[bestDay],desc:'متوسط '+bestDayAvg.toFixed(0)+' ر.س في '+dayStats[bestDay].count+' رحلة.',prob:Math.min(95,60+dayStats[bestDay].count*5),hot:true,c:'var(--green)'});
+  var slotStats={};
+  trips.forEach(function(t){var s=getSlotId(t.timeStr);if(!s)return;if(!slotStats[s])slotStats[s]={total:0,count:0};slotStats[s].total+=t.price;slotStats[s].count++;});
+  var bestSlot=null,bestSlotAvg=0;
+  Object.keys(slotStats).forEach(function(s){var a=slotStats[s].total/slotStats[s].count;if(a>bestSlotAvg){bestSlotAvg=a;bestSlot=s;}});
+  if(bestSlot){var sl=TIME_SLOTS.filter(function(s){return s.id===bestSlot;})[0];if(sl)patterns.push({icon:'&#9201;',title:'ذروتك: '+sl.range,desc:'متوسط '+bestSlotAvg.toFixed(0)+' ر.س. هذا الوقت ينتج رحلاتك الافضل.',prob:Math.min(88,55+slotStats[bestSlot].count*4),hot:bestSlot===getCurSlot().id,c:'var(--gold)'});}
+  var airT=trips.filter(function(t){return t.tripType==='airport';});
+  if(airT.length>=1){var airAvg=airT.reduce(function(s,t){return s+t.price;},0)/airT.length;patterns.push({icon:'&#9992;',title:'رحلات مطارك',desc:airT.length+' رحلة مطار بمتوسط '+airAvg.toFixed(0)+' ر.س - الاكثر ربحا.',prob:72,hot:false,c:'var(--orange)'});}
+  var wkd=trips.filter(function(t){return t.day!==5&&t.day!==6;});
+  var wknd=trips.filter(function(t){return t.day===5||t.day===6;});
+  if(wkd.length>0&&wknd.length>0){var wa=wkd.reduce(function(s,t){return s+t.price;},0)/wkd.length;var wka=wknd.reduce(function(s,t){return s+t.price;},0)/wknd.length;var diff=Math.abs(wa-wka).toFixed(0);patterns.push({icon:'&#128197;',title:(wa>wka?'ايام العمل':'العطلة')+' تعطيك '+diff+' ر.س اضافية',desc:'ايام العمل: '+wa.toFixed(0)+' ر.س - العطلة: '+wka.toFixed(0)+' ر.س',prob:65,hot:false,c:'var(--purple)'});}
+  document.getElementById('patternList').innerHTML=patterns.map(function(p,i){
+    return '<div class="pattern-item'+(p.hot?' hot':'')+'" style="animation-delay:'+(i*0.08)+'s">'
+      +'<div class="pi-icon">'+p.icon+'</div>'
+      +'<div class="pi-info"><div class="pi-title">'+p.title+'</div><div class="pi-desc">'+p.desc+'</div></div>'
+      +'<div class="pi-right"><div class="pi-prob" style="color:'+p.c+'">'+p.prob+'%</div><div class="pi-lbl">ثقة</div></div>'
+      +'</div>';
+  }).join('');
+}
+
+function buildDayPredict(trips){
+  var today=new Date().getDay();
+  var ds={};for(var d=0;d<7;d++)ds[d]={total:0,count:0};
+  trips.forEach(function(t){ds[t.day].total+=t.price;ds[t.day].count++;});
+  var maxA=0;for(var d=0;d<7;d++){var a=ds[d].count?ds[d].total/ds[d].count:0;if(a>maxA)maxA=a;}
+  document.getElementById('dayPredict').innerHTML=DAYS_SHORT.map(function(name,d){
+    var s=ds[d];var avg=s.count?s.total/s.count:0;var pct=maxA>0?Math.round((avg/maxA)*100):0;
+    var isToday=d===today;
+    var color=pct>70?'var(--green)':pct>40?'var(--gold)':s.count>0?'var(--muted)':'var(--border)';
+    return '<div class="dp-day'+(isToday?' today':'')+'">'
+      +'<div class="dp-name" style="color:'+(isToday?'var(--green)':'var(--muted)')+'">'+name+'</div>'
+      +'<div class="dp-score" style="color:'+color+'">'+(s.count?avg.toFixed(0):'--')+'</div>'
+      +'<div class="dp-bar" style="background:'+color+';opacity:'+(s.count?(pct/100+.2):.1)+';height:3px;border-radius:2px;margin-top:4px;"></div>'
+      +'<div class="dp-avg">'+(s.count?s.count+'ر':'')+'</div>'
+      +'</div>';
+  }).join('');
+}
+function buildEfficiency(trips){
+  if(!trips.length){document.getElementById('effCard').innerHTML='<div class="no-data"><div class="no-data-icon">&#9201;</div>اضف رحلات لحساب كفاءة وقتك</div>';return;}
+  var total=trips.reduce(function(s,t){return s+t.price;},0);
+  var avg=total/trips.length;
+  var avgDist=trips.reduce(function(s,t){return s+(t.dist||20);},0)/trips.length;
+  var avgPickup=trips.reduce(function(s,t){return s+(t.pickup||4);},0)/trips.length;
+  var avgTripMin=Math.round((avgDist/40)*60);
+  var avgPickupMin=Math.round((avgPickup/40)*60);
+  var totalMin=avgTripMin+avgPickupMin+5;
+  var tripsPerHour=Math.round(60/totalMin*10)/10;
+  var earnPerHour=Math.round(tripsPerHour*avg);
+  var activeRate=Math.round(avg/(avgTripMin/60));
+  var slotData={};
+  trips.forEach(function(t){var s=getSlotId(t.timeStr);if(!s)return;if(!slotData[s])slotData[s]={total:0,count:0};slotData[s].total+=t.price;slotData[s].count++;});
+  var topSlot=null,topEarn=0;
+  Object.keys(slotData).forEach(function(s){var e=slotData[s].total/slotData[s].count;if(e>topEarn){topEarn=e;topSlot=s;}});
+  var topSlotDef=topSlot?TIME_SLOTS.filter(function(s){return s.id===topSlot;})[0]:null;
+  document.getElementById('effCard').innerHTML=
+    '<div class="eff-main">'
+    +'<div class="eff-big"><div class="eff-big-val">'+earnPerHour+' ر.س</div><div class="eff-big-lbl">ربحك المقدر / ساعة</div></div>'
+    +'<div class="eff-compare">'
+    +'<div class="eff-comp-item"><div class="eff-comp-val" style="color:var(--green)">'+avg.toFixed(0)+' ر.س</div><div class="eff-comp-lbl">متوسط الرحلة</div></div>'
+    +'<div class="eff-comp-item"><div class="eff-comp-val" style="color:var(--blue)">'+tripsPerHour+'</div><div class="eff-comp-lbl">رحلة / ساعة</div></div>'
+    +'<div class="eff-comp-item"><div class="eff-comp-val" style="color:var(--gold)">'+avgTripMin+' د</div><div class="eff-comp-lbl">متوسط الرحلة</div></div>'
+    +'<div class="eff-comp-item"><div class="eff-comp-val" style="color:var(--purple)">'+avgPickupMin+' د</div><div class="eff-comp-lbl">وقت الاستلام</div></div>'
+    +'</div></div>'
+    +'<div class="eff-breakdown">'
+    +'<div class="eff-row"><span class="eff-row-lbl">معدل الربح اثناء الرحلة</span><span class="eff-row-val" style="color:var(--green)">'+activeRate+' ر.س/ساعة</span></div>'
+    +(topSlotDef?'<div class="eff-row"><span class="eff-row-lbl">اعلى كفاءة في</span><span class="eff-row-val" style="color:var(--gold)">'+topSlotDef.label+' - '+topEarn.toFixed(0)+' ر.س/رحلة</span></div>':'')
+    +'<div class="eff-row"><span class="eff-row-lbl">لرفع الكفاءة</span><span class="eff-row-val" style="color:var(--blue)">قلل وقت الاستلام واختر مناطق اقرب</span></div>'
+    +'</div>';
+}
+
+function buildRoutes(trips){
+  if(trips.length<3){document.getElementById('routeGrid').innerHTML='<div class="no-data"><div class="no-data-icon">&#128648;</div>تحتاج 3 رحلات لمقارنة المسارات</div>';return;}
+  var ZN={airport:'المطار',north:'شمال الرياض',center:'وسط الرياض',east:'شرق الرياض',south:'جنوب الرياض',west:'غرب الرياض'};
+  var ZK={airport:['airport','مطار','خالد'],north:['ملقا','نخيل','ورود','عقيق','انتصار','انقري'],center:['عليا','تحلية','فهد','عمار'],east:['نسيم','روضة','ماجوب'],south:['جوهري','تويق','جنوب'],west:['عزيزية','بدر','غرب']};
+  function getZ(text){if(!text)return 'center';var t=(text||'').toLowerCase();var zs=Object.keys(ZK);for(var i=0;i<zs.length;i++){for(var j=0;j<ZK[zs[i]].length;j++){if(t.includes(ZK[zs[i]][j]))return zs[i];}}return 'center';}
+  var rm={};
+  trips.forEach(function(t){
+    if(!t.route||t.route==='---')return;
+    var parts=t.route.split(/[\u2190\u2192\-]/);
+    if(parts.length<2)return;
+    var from=getZ(parts[0]),to=getZ(parts[parts.length-1]);
+    if(from===to)return;
+    var key=from+'|'+to;
+    if(!rm[key])rm[key]={from:from,to:to,total:0,count:0,maxP:0};
+    rm[key].total+=t.price;rm[key].count++;
+    if(t.price>rm[key].maxP)rm[key].maxP=t.price;
+  });
+  var routes=Object.values(rm).filter(function(r){return r.count>=1;}).sort(function(a,b){return(b.total/b.count)-(a.total/a.count);}).slice(0,5);
+  if(!routes.length){document.getElementById('routeGrid').innerHTML='<div class="no-data"><div class="no-data-icon">&#128648;</div>اضف بيانات المسار (حقل من - الى)</div>';return;}
+  var maxAvg=routes[0].total/routes[0].count;
+  document.getElementById('routeGrid').innerHTML=routes.map(function(r,i){
+    var avg=r.total/r.count;var pct=Math.round((avg/maxAvg)*100);
+    return '<div class="route-card'+(i===0?' best':'')+'" style="animation-delay:'+(i*0.07)+'s">'
+      +'<div class="route-header">'+(i===0?'<span class="route-best-badge">الاربح</span>':'')
+      +'<span class="route-from">'+ZN[r.from]+'</span><span class="route-arrow">&#8592;</span><span class="route-to">'+ZN[r.to]+'</span></div>'
+      +'<div class="route-stats">'
+      +'<div class="rs"><div class="rs-val" style="color:var(--green)">'+avg.toFixed(0)+' ر.س</div><div class="rs-lbl">متوسط</div></div>'
+      +'<div class="rs"><div class="rs-val" style="color:var(--orange)">'+r.maxP.toFixed(0)+' ر.س</div><div class="rs-lbl">اعلى</div></div>'
+      +'<div class="rs"><div class="rs-val" style="color:var(--blue)">'+r.count+'</div><div class="rs-lbl">رحلة</div></div>'
+      +'<div class="rs"><div class="rs-val" style="color:var(--purple)">'+pct+'%</div><div class="rs-lbl">كفاءة</div></div>'
+      +'</div></div>';
+  }).join('');
+}
+
+function buildBreakeven(trips){
+  if(!trips.length){document.getElementById('breakevenCard').innerHTML='<div class="no-data"><div class="no-data-icon">&#9878;</div>اضف رحلات لحساب نقطة التعادل</div>';return;}
+  var avg=trips.reduce(function(s,t){return s+t.price;},0)/trips.length;
+  var avgDist=trips.reduce(function(s,t){return s+(t.dist||20);},0)/trips.length;
+  var avgPickup=trips.reduce(function(s,t){return s+(t.pickup||4);},0)/trips.length;
+  var costPerTrip=(avgDist+avgPickup)*0.25;
+  var netPerTrip=avg-costPerTrip;
+  var dailyFixed=50;
+  var beTrips=Math.ceil(dailyFixed/netPerTrip);
+  var now=new Date();
+  var todayTrips=trips.filter(function(t){return new Date(t.ts).toDateString()===now.toDateString();}).length;
+  var progress=Math.min(Math.round((todayTrips/beTrips)*100),100);
+  var remaining=Math.max(beTrips-todayTrips,0);
+  document.getElementById('breakevenCard').innerHTML=
+    '<div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">اليوم: '+todayTrips+' رحلة من '+beTrips+' لنقطة التعادل</div>'
+    +'<div class="be-visual"><div class="be-fill" style="width:'+progress+'%"></div></div>'
+    +'<div class="be-labels"><span>&#128308; خسارة</span><span>&#128992; تعادل</span><span>&#128994; ربح</span></div>'
+    +'<div class="be-stats">'
+    +'<div class="be-stat"><div class="be-stat-val" style="color:'+(remaining===0?'var(--green)':'var(--red)')+'">'+( remaining===0?'وصلت!':remaining)+'</div><div class="be-stat-lbl">رحلات متبقية</div></div>'
+    +'<div class="be-stat"><div class="be-stat-val" style="color:var(--gold)">'+avg.toFixed(0)+' ر.س</div><div class="be-stat-lbl">متوسط الرحلة</div></div>'
+    +'<div class="be-stat"><div class="be-stat-val" style="color:var(--green)">'+netPerTrip.toFixed(0)+' ر.س</div><div class="be-stat-lbl">صافي / رحلة</div></div>'
+    +'</div>'
+    +'<div class="be-insight">'+(remaining===0?'&#128994; انجزت نقطة التعادل! كل رحلة الان ربح صافٍ.':'&#9888; تحتاج '+remaining+' رحلة لتغطية التكاليف. بعدها كل رحلة ربح صافٍ '+netPerTrip.toFixed(0)+' ر.س.')+'</div>';
+}
+
+async function loadAll(){
+  try{
+    var r=await fetch(BASE+'/api/trips');
+    var d=await r.json();
+    var trips=d.success?d.trips:[];
+    document.getElementById('dataBadge').textContent=trips.length+' رحلة في قاعدة البيانات المشتركة';
+    buildPrediction(trips);buildHourlyChart(trips);buildPatterns(trips);
+    buildDayPredict(trips);buildEfficiency(trips);buildRoutes(trips);buildBreakeven(trips);
+  }catch(e){document.getElementById('dataBadge').textContent='تعذر تحميل البيانات';console.error(e);}
+}
+loadAll();
+setInterval(loadAll,60000);
+</script>
+</body>
+</html>

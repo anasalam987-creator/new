@@ -70,6 +70,10 @@ app.post('/api/analyze', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+app.get('/strategy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'strategy.html'));
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

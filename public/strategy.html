@@ -8,16 +8,16 @@
 <style>
 :root{--bg:#060810;--card:#111320;--card2:#161826;--green:#00e5a0;--blue:#3b82f6;--orange:#f97316;--red:#ef4444;--gold:#fbbf24;--purple:#a855f7;--text:#f1f5f9;--muted:#64748b;--border:rgba(255,255,255,0.06);}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body{font-family:Tajawal,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,160,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
 .wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:20px 16px 80px;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(0,229,160,0.2)}50%{box-shadow:0 0 40px rgba(0,229,160,0.5)}}
 .nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-.nav-back{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:8px 16px;font-family:'Tajawal',sans-serif;font-size:.85rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s;}
+.nav-back{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:8px 16px;font-family:Tajawal,sans-serif;font-size:.85rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s;}
 .nav-back:hover{border-color:var(--green);color:var(--green);}
-.refresh-btn{background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.2);color:var(--green);border-radius:10px;padding:8px 14px;font-family:'Tajawal',sans-serif;font-size:.8rem;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;}
+.refresh-btn{background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.2);color:var(--green);border-radius:10px;padding:8px 14px;font-family:Tajawal,sans-serif;font-size:.8rem;cursor:pointer;display:flex;align-items:center;gap:5px;}
 .refresh-btn.spinning svg{animation:spin .8s linear infinite;}
 .hero{text-align:center;padding:16px 0 24px;position:relative;}
 .hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:200px;background:radial-gradient(ellipse,rgba(0,229,160,0.12) 0%,transparent 70%);pointer-events:none;}
@@ -31,7 +31,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .sec .d{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;}
 .sec::after{content:'';flex:1;height:1px;background:var(--border);}
 .pickup-card{background:var(--card);border:1px solid rgba(0,229,160,0.3);border-radius:16px;padding:18px;margin-bottom:14px;position:relative;animation:glow 3s ease infinite;}
-.pc-badge{position:absolute;top:-10px;right:16px;background:var(--green);color:#000;font-size:.65rem;font-weight:900;padding:4px 12px;border-radius:20px;letter-spacing:1px;}
+.pc-badge{position:absolute;top:-10px;right:16px;background:var(--green);color:#000;font-size:.65rem;font-weight:900;padding:4px 12px;border-radius:20px;}
 .pc-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
 .pc-pin{width:44px;height:44px;border-radius:12px;background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.3);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
 .pc-info{flex:1;}
@@ -42,14 +42,14 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .pc-time-label{font-size:.72rem;color:var(--muted);flex:1;}
 .pc-time-val{font-size:1rem;font-weight:900;color:var(--gold);}
 .pc-why{font-size:.72rem;color:var(--muted);line-height:1.6;padding:10px 12px;background:rgba(0,229,160,0.04);border-radius:8px;border-right:2px solid var(--green);margin-bottom:14px;}
-.map-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#000;border:none;border-radius:12px;padding:13px;font-family:'Tajawal',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;text-decoration:none;transition:all .2s;width:100%;}
+.map-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#000;border:none;border-radius:12px;padding:13px;font-size:.95rem;font-weight:800;cursor:pointer;text-decoration:none;transition:all .2s;width:100%;}
 .map-btn:hover{background:#00ffb3;transform:translateY(-2px);}
 .nh-period{font-size:.75rem;font-weight:700;padding:5px 12px;border-radius:20px;}
 .period-morning{background:rgba(251,191,36,.15);color:var(--gold);border:1px solid rgba(251,191,36,.3);}
 .period-evening{background:rgba(168,85,247,.15);color:var(--purple);border:1px solid rgba(168,85,247,.3);}
 .period-dawn{background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.3);}
 .timeline{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
-.tl-item{display:flex;align-items:stretch;border-bottom:1px solid var(--border);transition:background .2s;}
+.tl-item{display:flex;align-items:stretch;border-bottom:1px solid var(--border);}
 .tl-item:last-child{border-bottom:none;}
 .tl-item.active{background:rgba(0,229,160,0.04);}
 .tl-item.past{opacity:.5;}
@@ -68,7 +68,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .tag-blue{background:rgba(59,130,246,.1);color:var(--blue);}
 .tl-price{font-size:.8rem;font-weight:800;color:var(--green);margin-top:4px;}
 .zones-grid{display:flex;flex-direction:column;gap:8px;}
-.zone-card{background:var(--card);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:12px;padding:14px;animation:fadeUp .4s ease both;transition:border-color .2s;cursor:pointer;text-decoration:none;}
+.zone-card{background:var(--card);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:12px;padding:14px;animation:fadeUp .4s ease both;text-decoration:none;transition:border-color .2s;}
 .zone-card:hover{border-color:rgba(0,229,160,.25);}
 .zone-card.top{border-color:rgba(0,229,160,.3);background:linear-gradient(135deg,rgba(0,229,160,0.06),var(--card));}
 .zc-rank{font-size:1.4rem;font-weight:900;min-width:32px;text-align:center;}
@@ -124,6 +124,22 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   <div id="liveDate">جاري التحميل...</div>
   <p style="margin-top:6px">تتحدث تلقائيا - مبنية على بياناتك الفعلية</p>
 </div>
+<div id="gpsCard" style="background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(59,130,246,0.02));border:1px solid rgba(59,130,246,0.25);border-radius:16px;padding:16px;margin-bottom:14px;animation:fadeUp .3s ease both;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <div>
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:2px;color:var(--blue);text-transform:uppercase;margin-bottom:3px;">موقعك الحالي</div>
+      <div id="gpsName" style="font-size:.95rem;font-weight:800;">جاري تحديد موقعك...</div>
+      <div id="gpsSub" style="font-size:.72rem;color:var(--muted);margin-top:2px;"></div>
+    </div>
+    <button onclick="getGPS()" id="gpsBtn" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:var(--blue);border-radius:10px;padding:8px 14px;font-size:.8rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;">
+      <span id="gpsBtnIcon">&#128205;</span> تحديد
+    </button>
+  </div>
+  <div id="gpsRoutes" style="display:none;">
+    <div style="font-size:.65rem;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">من موقعك لاقرب نقاط الالتقاط:</div>
+    <div id="gpsRoutesList" style="display:flex;flex-direction:column;gap:6px;"></div>
+  </div>
+</div>
 <div class="stats-row" id="statsRow"></div>
 <div class="sec"><div class="d"></div> نقطة الالتقاط الموصى بها الان</div>
 <div id="pickupSection"><div class="loading"><div class="loading-spin"></div> جاري التحليل...</div></div>
@@ -139,20 +155,20 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <script>
 var BASE=window.location.origin;
 var PICKUP_POINTS=[
-  {id:'airport_north',name:'شمال مطار الملك خالد',area:'الطريق الدائري الشمالي',lat:24.9580,lng:46.6990,hint:'افضل موقع لرحلات المطار الصباحية - الركاب يخرجون من T1 وT2',bestSlots:['dawn','morning'],expectedPrice:85},
-  {id:'mallqa',name:'حي الملقا - طريق الامير محمد بن سلمان',area:'شمال الرياض',lat:24.7736,lng:46.6158,hint:'منطقة الشركات والمكاتب - رحلات حصري Black Corporate صباحا',bestSlots:['morning','midday'],expectedPrice:60},
+  {id:'airport_north',name:'شمال مطار الملك خالد',area:'الطريق الدائري الشمالي',lat:24.9580,lng:46.6990,hint:'افضل موقع لرحلات المطار الصباحية',bestSlots:['dawn','morning'],expectedPrice:85},
+  {id:'mallqa',name:'حي الملقا - طريق الامير محمد بن سلمان',area:'شمال الرياض',lat:24.7736,lng:46.6158,hint:'منطقة الشركات - رحلات حصري Black Corporate',bestSlots:['morning','midday'],expectedPrice:60},
   {id:'nakheel',name:'حي النخيل - طريق الملك سلمان',area:'شمال الرياض',lat:24.7650,lng:46.6420,hint:'احياء راقية - رحلات Comfort وBlack بأسعار ممتازة',bestSlots:['morning','evening'],expectedPrice:55},
-  {id:'olaya',name:'العليا - برج المملكة',area:'وسط الرياض',lat:24.6917,lng:46.6830,hint:'قلب الاعمال - ذروة الصباح والمساء مع رحلات طويلة',bestSlots:['morning','after'],expectedPrice:50},
-  {id:'tahlia',name:'شارع التحلية - حي العليا',area:'وسط الرياض',lat:24.6990,lng:46.6754,hint:'تسوق وترفيه - نشط مساء وعطل نهاية الاسبوع',bestSlots:['evening','noon'],expectedPrice:45},
-  {id:'naseem',name:'حي النسيم الغربي',area:'شرق الرياض',lat:24.7369,lng:46.8304,hint:'مناطق سكنية كثيفة - رحلات منتظمة طوال اليوم',bestSlots:['morning','after'],expectedPrice:48}
+  {id:'olaya',name:'العليا - برج المملكة',area:'وسط الرياض',lat:24.6917,lng:46.6830,hint:'قلب الاعمال - ذروة الصباح والمساء',bestSlots:['morning','after'],expectedPrice:50},
+  {id:'tahlia',name:'شارع التحلية',area:'وسط الرياض',lat:24.6990,lng:46.6754,hint:'تسوق وترفيه - نشط مساء وعطل نهاية الاسبوع',bestSlots:['evening','noon'],expectedPrice:45},
+  {id:'naseem',name:'حي النسيم الغربي',area:'شرق الرياض',lat:24.7369,lng:46.8304,hint:'مناطق سكنية - رحلات منتظمة طوال اليوم',bestSlots:['morning','after'],expectedPrice:48}
 ];
 var ZONES_DEF=[
-  {id:'airport',name:'مطار الملك خالد',sub:'T1, T2, الطريق الشمالي',lat:24.9580,lng:46.6990,keywords:['airport','مطار','خالد']},
-  {id:'north',name:'شمال الرياض',sub:'الملقا، النخيل، الورود، العقيق',lat:24.7736,lng:46.6158,keywords:['ملقا','نخيل','ورود','عقيق','انتصار','انقري']},
-  {id:'center',name:'وسط الرياض',sub:'العليا، التحلية، طريق الملك فهد',lat:24.6917,lng:46.6830,keywords:['عليا','تحلية','فهد','عمار','انقري']},
-  {id:'east',name:'شرق الرياض',sub:'النسيم، الروضة',lat:24.7369,lng:46.8304,keywords:['نسيم','روضة','ماجوب','شرق']},
-  {id:'south',name:'جنوب الرياض',sub:'الشعلة، السويدي، تويق',lat:24.5887,lng:46.5570,keywords:['جوهري','تويق','جنوب','شعلة']},
-  {id:'west',name:'غرب الرياض',sub:'العزيزية، بدر، الدرعية',lat:24.6840,lng:46.5500,keywords:['عزيزية','بدر','غرب']}
+  {id:'airport',name:'مطار الملك خالد',sub:'T1, T2',lat:24.9580,lng:46.6990,keywords:['airport','مطار','خالد']},
+  {id:'north',name:'شمال الرياض',sub:'الملقا، النخيل، الورود',lat:24.7736,lng:46.6158,keywords:['ملقا','نخيل','ورود','عقيق','انتصار','انقري']},
+  {id:'center',name:'وسط الرياض',sub:'العليا، التحلية',lat:24.6917,lng:46.6830,keywords:['عليا','تحلية','فهد','عمار']},
+  {id:'east',name:'شرق الرياض',sub:'النسيم، الروضة',lat:24.7369,lng:46.8304,keywords:['نسيم','روضة','ماجوب']},
+  {id:'south',name:'جنوب الرياض',sub:'السويدي، تويق',lat:24.5887,lng:46.5570,keywords:['جوهري','تويق','جنوب']},
+  {id:'west',name:'غرب الرياض',sub:'العزيزية، بدر',lat:24.6840,lng:46.5500,keywords:['عزيزية','بدر','غرب']}
 ];
 var TIME_SLOTS=[
   {id:'dawn',label:'فجر',range:'4-6 ص',h:[4,5]},
@@ -163,12 +179,12 @@ var TIME_SLOTS=[
   {id:'evening',label:'مساء',range:'6-12 م',h:[18,19,20,21,22,23]}
 ];
 var SCHEDULE=[
-  {slot:'dawn',label:'شمال مطار الملك خالد',desc:'انتظر رحلات المطار الصباحية - المغادرون يحجزون مبكرا',tags:['مطار','85+ ر.س'],color:'var(--orange)',lat:24.9580,lng:46.6990},
-  {slot:'morning',label:'حي الملقا والنخيل',desc:'رحلات موظفي الشركات الحصرية - اعلى متوسط في اليوم',tags:['حصري','Black Corporate'],color:'var(--green)',lat:24.7736,lng:46.6158},
-  {slot:'midday',label:'العليا وبرج المملكة',desc:'اخر موجة رحلات الاعمال + بداية التسوق',tags:['وسط الرياض'],color:'var(--blue)',lat:24.6917,lng:46.6830},
-  {slot:'noon',label:'استراحة موصى بها',desc:'اضعف فترة - تنافس عالٍ واسعار منخفضة. ارتح وعد قبل المساء',tags:['لا ينصح'],color:'var(--muted)',lat:null,lng:null},
-  {slot:'after',label:'التحلية والنسيم',desc:'بداية الحركة المسائية - التسوق والمطاعم والاحياء السكنية',tags:['مساء','Boost+'],color:'var(--purple)',lat:24.6990,lng:46.6754},
-  {slot:'evening',label:'شمال الرياض والمطار',desc:'ذروة المساء - رحلات طويلة وBoost+ متاح بكثرة',tags:['ذروة','Boost+','مطار'],color:'var(--gold)',lat:24.7650,lng:46.6420}
+  {slot:'dawn',label:'شمال مطار الملك خالد',desc:'انتظر رحلات المطار الصباحية',tags:['مطار','85+ ر.س'],color:'var(--orange)',lat:24.9580,lng:46.6990},
+  {slot:'morning',label:'حي الملقا والنخيل',desc:'رحلات موظفي الشركات الحصرية',tags:['حصري','Black Corporate'],color:'var(--green)',lat:24.7736,lng:46.6158},
+  {slot:'midday',label:'العليا وبرج المملكة',desc:'اخر موجة رحلات الاعمال',tags:['وسط الرياض'],color:'var(--blue)',lat:24.6917,lng:46.6830},
+  {slot:'noon',label:'استراحة موصى بها',desc:'اضعف فترة - ارتح وعد قبل المساء',tags:['لا ينصح'],color:'var(--muted)',lat:null,lng:null},
+  {slot:'after',label:'التحلية والنسيم',desc:'بداية الحركة المسائية',tags:['مساء','Boost+'],color:'var(--purple)',lat:24.6990,lng:46.6754},
+  {slot:'evening',label:'شمال الرياض والمطار',desc:'ذروة المساء - رحلات طويلة',tags:['ذروة','Boost+'],color:'var(--gold)',lat:24.7650,lng:46.6420}
 ];
 function getZoneId(route){
   if(!route)return 'center';
@@ -196,10 +212,9 @@ function updateClock(){
   var days=['الاحد','الاثنين','الثلاثاء','الاربعاء','الخميس','الجمعة','السبت'];
   var months=['يناير','فبراير','مارس','ابريل','مايو','يونيو','يوليو','اغسطس','سبتمبر','اكتوبر','نوفمبر','ديسمبر'];
   var isWk=now.getDay()===5||now.getDay()===6;
-  document.getElementById('liveDate').textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()]+(isWk?' - عطلة نهاية الاسبوع':' - يوم عمل');
+  document.getElementById('liveDate').textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()]+(isWk?' - عطلة':'- يوم عمل');
 }
-setInterval(updateClock,1000);
-updateClock();
+setInterval(updateClock,1000);updateClock();
 function analyze(trips){
   var zd={};
   ZONES_DEF.forEach(function(z){zd[z.id]={trips:[],total:0,count:0,times:{},days:{}};});
@@ -211,6 +226,82 @@ function analyze(trips){
     zd[zid].days[dt]=(zd[zid].days[dt]||0)+1;
   });
   return zd;
+}
+var _userLat=null,_userLng=null;
+function calcDist(lat1,lng1,lat2,lng2){
+  var R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180;
+  var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)*Math.sin(dLng/2);
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+function getNeighborhood(lat,lng){
+  var zones=[
+    {name:'شمال الرياض',sub:'الملقا، النخيل',lat:24.77,lng:46.63},
+    {name:'حي الرمال',sub:'شرق الرياض',lat:24.72,lng:46.85},
+    {name:'وسط الرياض',sub:'العليا، التحلية',lat:24.69,lng:46.68},
+    {name:'جنوب الرياض',sub:'تويق، السويدي',lat:24.59,lng:46.68},
+    {name:'غرب الرياض',sub:'العزيزية، بدر',lat:24.68,lng:46.55},
+    {name:'شرق الرياض',sub:'النسيم، الروضة',lat:24.73,lng:46.83},
+    {name:'منطقة المطار',sub:'الطريق الشمالي',lat:24.96,lng:46.70}
+  ];
+  var closest=null,minDist=999;
+  zones.forEach(function(z){var d=calcDist(lat,lng,z.lat,z.lng);if(d<minDist){minDist=d;closest=z;}});
+  return closest?{name:closest.name,sub:closest.sub,dist:minDist}:{name:'الرياض',sub:'',dist:0};
+}
+function getGPS(){
+  var icon=document.getElementById('gpsBtnIcon');
+  var btn=document.getElementById('gpsBtn');
+  document.getElementById('gpsName').textContent='جاري تحديد موقعك...';
+  document.getElementById('gpsSub').textContent='';
+  icon.textContent='⏳';btn.style.opacity='0.6';
+  if(!navigator.geolocation){document.getElementById('gpsName').textContent='GPS غير متاح';icon.textContent='⚠️';btn.style.opacity='1';return;}
+  navigator.geolocation.getCurrentPosition(
+    function(pos){
+      _userLat=pos.coords.latitude;_userLng=pos.coords.longitude;
+      var hood=getNeighborhood(_userLat,_userLng);
+      document.getElementById('gpsName').textContent=hood.name;
+      document.getElementById('gpsSub').textContent=hood.sub;
+      icon.textContent='✅';btn.style.opacity='1';
+      buildGPSRoutes();
+    },
+    function(){document.getElementById('gpsName').textContent='تعذر تحديد الموقع - فعل GPS وحاول مجددا';icon.textContent='❌';btn.style.opacity='1';},
+    {enableHighAccuracy:true,timeout:10000}
+  );
+}
+function buildGPSRoutes(){
+  if(!_userLat||!_userLng)return;
+  var now=new Date(),curSlot=getCurSlot(),AVG=35;
+  var routes=PICKUP_POINTS.map(function(p){
+    var dist=calcDist(_userLat,_userLng,p.lat,p.lng);
+    var tMin=Math.round((dist/AVG)*60);
+    var isGood=p.bestSlots.indexOf(curSlot.id)!==-1;
+    return{p:p,dist:dist,tMin:tMin,isGood:isGood};
+  }).sort(function(a,b){if(a.isGood&&!b.isGood)return -1;if(!a.isGood&&b.isGood)return 1;return a.dist-b.dist;}).slice(0,4);
+  var html=routes.map(function(r){
+    var depart=r.tMin<=5?'اخرج الان':'اخرج خلال '+(r.tMin-5)+' دقيقة';
+    var arr=new Date(now.getTime()+r.tMin*60000);
+    var arrStr=String(arr.getHours()).padStart(2,'0')+':'+String(arr.getMinutes()).padStart(2,'0');
+    var bc=r.isGood?'rgba(0,229,160,0.3)':'var(--border)';
+    var badge=r.isGood?'<span style="font-size:.6rem;font-weight:800;background:var(--green);color:#000;padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:4px;">مثالي الان</span><br>':'';
+    return '<div style="background:var(--card2);border:1px solid '+bc+';border-radius:10px;padding:12px;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div style="flex:1">'+badge
+      +'<div style="font-size:.82rem;font-weight:800;">'+r.p.name+'</div>'
+      +'<div style="font-size:.68rem;color:var(--muted)">'+r.p.area+'</div></div>'
+      +'<div style="text-align:left;flex-shrink:0;margin-right:8px;">'
+      +'<div style="font-size:.75rem;font-weight:800;color:var(--blue)">'+r.dist.toFixed(1)+' كلم</div>'
+      +'<div style="font-size:.65rem;color:var(--muted)">'+r.tMin+' دقيقة</div></div></div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">'
+      +'<div style="background:var(--card);border-radius:7px;padding:7px;text-align:center;">'
+      +'<div style="font-size:.65rem;color:var(--muted)">وقت الخروج</div>'
+      +'<div style="font-size:.82rem;font-weight:800;color:var(--gold)">'+depart+'</div></div>'
+      +'<div style="background:var(--card);border-radius:7px;padding:7px;text-align:center;">'
+      +'<div style="font-size:.65rem;color:var(--muted)">وصول ~'+arrStr+'</div>'
+      +'<div style="font-size:.82rem;font-weight:800;color:var(--green)">'+r.p.expectedPrice+'+ ر.س</div></div></div>'
+      +'<a href="'+mapsNavUrl(r.p.lat,r.p.lng)+'" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;background:var(--green);color:#000;border-radius:8px;padding:9px;font-size:.82rem;font-weight:800;text-decoration:none;">&#128205; توجه الان</a>'
+      +'</div>';
+  }).join('');
+  document.getElementById('gpsRoutesList').innerHTML=html;
+  document.getElementById('gpsRoutes').style.display='block';
 }
 function buildStats(trips){
   if(!trips.length){document.getElementById('statsRow').innerHTML='';return;}
@@ -227,8 +318,7 @@ function buildStats(trips){
     '<div class="stat-mini" style="--c:var(--purple)"><div class="sm-val">'+excl.length+'</div><div class="sm-lbl">رحلات حصري</div></div>';
 }
 function buildPickup(trips){
-  var now=new Date(),h=now.getHours();
-  var curSlot=getCurSlot();
+  var now=new Date(),h=now.getHours(),curSlot=getCurSlot();
   var dayType=(now.getDay()===5||now.getDay()===6)?'weekend':'weekday';
   var periodClass=h<6?'period-dawn':h<12?'period-morning':'period-evening';
   var periodLabel=h<6?'فجر':h<12?'صباح':h<18?'ظهر':'مساء';
@@ -250,44 +340,33 @@ function buildPickup(trips){
   var slotAvg=slotTrips.length?slotTrips.reduce(function(s,t){return s+t.price;},0)/slotTrips.length:bestPoint.expectedPrice;
   var arrivalTime=h>=curSlot.h[0]?'الان':String(curSlot.h[0]).padStart(2,'0')+':00';
   document.getElementById('pickupSection').innerHTML=
-    '<div class="pickup-card">'+
-    '<div class="pc-badge">نقطة الالتقاط المثالية</div>'+
-    '<div class="pc-header"><div class="pc-pin">&#128205;</div>'+
-    '<div class="pc-info"><div class="pc-name">'+bestPoint.name+'</div><div class="pc-area">'+bestPoint.area+'</div></div>'+
-    '<div class="nh-period '+periodClass+'">'+periodLabel+'</div></div>'+
-    '<div class="pc-time-row"><div class="pc-time-icon">&#9201;</div><div class="pc-time-label">افضل وقت للوصول</div><div class="pc-time-val">'+arrivalTime+' - '+curSlot.range+'</div></div>'+
-    '<div class="pc-time-row"><div class="pc-time-icon">&#128176;</div><div class="pc-time-label">السعر المتوقع</div><div class="pc-time-val" style="color:var(--green)">'+slotAvg.toFixed(0)+' ر.س</div></div>'+
-    '<div class="pc-why">'+bestPoint.hint+'</div>'+
-    '<a class="map-btn" href="'+mapsNavUrl(bestPoint.lat,bestPoint.lng)+'" target="_blank">&#128205; توجه الان - افتح في خرائط Google</a>'+
-    '</div>';
+    '<div class="pickup-card"><div class="pc-badge">نقطة الالتقاط المثالية</div>'
+    +'<div class="pc-header"><div class="pc-pin">&#128205;</div>'
+    +'<div class="pc-info"><div class="pc-name">'+bestPoint.name+'</div><div class="pc-area">'+bestPoint.area+'</div></div>'
+    +'<div class="nh-period '+periodClass+'">'+periodLabel+'</div></div>'
+    +'<div class="pc-time-row"><div class="pc-time-icon">&#9201;</div><div class="pc-time-label">افضل وقت للوصول</div><div class="pc-time-val">'+arrivalTime+' - '+curSlot.range+'</div></div>'
+    +'<div class="pc-time-row"><div class="pc-time-icon">&#128176;</div><div class="pc-time-label">السعر المتوقع</div><div class="pc-time-val" style="color:var(--green)">'+slotAvg.toFixed(0)+' ر.س</div></div>'
+    +'<div class="pc-why">'+bestPoint.hint+'</div>'
+    +'<a class="map-btn" href="'+mapsNavUrl(bestPoint.lat,bestPoint.lng)+'" target="_blank">&#128205; توجه الان - افتح في خرائط Google</a></div>';
 }
 function buildSchedule(trips){
   var now=new Date(),curH=now.getHours(),curSlot=getCurSlot();
-  var slotStats={};
-  trips.forEach(function(t){var sid=getSlotId(t.timeStr);if(!sid)return;if(!slotStats[sid])slotStats[sid]={c:0,t:0};slotStats[sid].c++;slotStats[sid].t+=t.price;});
+  var ss={};trips.forEach(function(t){var sid=getSlotId(t.timeStr);if(!sid)return;if(!ss[sid])ss[sid]={c:0,t:0};ss[sid].c++;ss[sid].t+=t.price;});
   document.getElementById('scheduleSection').innerHTML=SCHEDULE.map(function(item){
     var slotDef=TIME_SLOTS.filter(function(s){return s.id===item.slot;})[0];
     var isActive=item.slot===curSlot.id;
     var isPast=slotDef&&slotDef.h[slotDef.h.length-1]<curH;
-    var ss=slotStats[item.slot];
-    var avgStr=ss&&ss.c?' - متوسط '+(ss.t/ss.c).toFixed(0)+' ر.س':'';
+    var s=ss[item.slot];var avgStr=s&&s.c?' - متوسط '+(s.t/s.c).toFixed(0)+' ر.س':'';
     var mapLink='';
     if(item.lat&&isActive)mapLink='<br><a href="'+mapsNavUrl(item.lat,item.lng)+'" target="_blank" style="font-size:.7rem;color:var(--green);font-weight:700;text-decoration:none;">&#128205; افتح في الخريطة الان</a>';
     else if(item.lat)mapLink='<br><a href="'+mapsUrl(item.lat,item.lng)+'" target="_blank" style="font-size:.68rem;color:var(--muted);text-decoration:none;">&#128205; عرض الموقع</a>';
     var tags=item.tags.map(function(t){var tc=t.includes('ر.س')?'tag-gold':t.includes('مطار')?'tag-orange':t.includes('حصري')||t.includes('Corporate')?'tag-blue':t.includes('لا')?'':'tag-green';return tc?'<span class="tl-tag '+tc+'">'+t+'</span>':'';}).join('');
     return '<div class="tl-item'+(isActive?' active':'')+(isPast?' past':'')+'">'
-      +'<div class="tl-time-col" style="color:'+item.color+'">'
-      +'<div class="tl-time">'+(slotDef?slotDef.range:'')+'</div>'
-      +'<div class="tl-dot" style="background:'+item.color+'"></div>'
-      +(isActive?'<div class="tl-now-badge">الان</div>':'')
-      +'</div>'
-      +'<div class="tl-content">'
-      +'<div class="tl-zone">'+item.label+'</div>'
+      +'<div class="tl-time-col" style="color:'+item.color+'"><div class="tl-time">'+(slotDef?slotDef.range:'')+'</div>'
+      +'<div class="tl-dot" style="background:'+item.color+'"></div>'+(isActive?'<div class="tl-now-badge">الان</div>':'')+'</div>'
+      +'<div class="tl-content"><div class="tl-zone">'+item.label+'</div>'
       +'<div class="tl-desc">'+item.desc+'</div>'
-      +'<div class="tl-tags">'+tags+'</div>'
-      +(avgStr?'<div class="tl-price">'+avgStr+'</div>':'')
-      +mapLink
-      +'</div></div>';
+      +'<div class="tl-tags">'+tags+'</div>'+(avgStr?'<div class="tl-price">'+avgStr+'</div>':'')+mapLink+'</div></div>';
   }).join('');
 }
 function buildZones(trips){
@@ -298,22 +377,18 @@ function buildZones(trips){
   var icons=['&#127942;','&#129352;','&#129353;','4','5','6'];
   var colors=['var(--gold)','var(--muted)','#cd7f32','var(--muted)','var(--muted)','var(--muted)'];
   document.getElementById('zonesSection').innerHTML=ranked.map(function(r,i){
-    var z=r.zone,d=r.zd;
-    var maxP=d.trips.length?Math.max.apply(null,d.trips.map(function(t){return t.price;})):0;
+    var z=r.zone,d=r.zd;var maxP=d.trips.length?Math.max.apply(null,d.trips.map(function(t){return t.price;})):0;
     return '<a class="zone-card'+(i===0?' top':'')+'" href="'+mapsUrl(z.lat,z.lng)+'" target="_blank" style="animation-delay:'+(i*0.07)+'s">'
       +'<div class="zc-rank" style="color:'+colors[i]+'">'+icons[i]+'</div>'
       +'<div class="zc-info"><div class="zc-name">'+z.name+'</div><div class="zc-sub">'+z.sub+'</div><div class="zc-map">&#128205; افتح في الخريطة</div></div>'
-      +'<div class="zc-right"><div class="zc-avg">'+r.avg.toFixed(0)+' ر.س</div><div class="zc-cnt">'+d.count+' رحلة</div><div class="zc-cnt">اعلى: '+maxP.toFixed(0)+' ر.س</div></div>'
-      +'</a>';
+      +'<div class="zc-right"><div class="zc-avg">'+r.avg.toFixed(0)+' ر.س</div><div class="zc-cnt">'+d.count+' رحلة</div><div class="zc-cnt">اعلى: '+maxP.toFixed(0)+' ر.س</div></div></a>';
   }).join('');
 }
 function buildHeatmap(trips){
   if(!trips.length)return;
-  var zd=analyze(trips);
-  var active=ZONES_DEF.filter(function(z){return zd[z.id].count>0;}).slice(0,5);
+  var zd=analyze(trips);var active=ZONES_DEF.filter(function(z){return zd[z.id].count>0;}).slice(0,5);
   if(!active.length)return;
-  var maxVal=0;
-  active.forEach(function(z){TIME_SLOTS.forEach(function(ts){var v=zd[z.id].times[ts.id]||0;if(v>maxVal)maxVal=v;});});
+  var maxVal=0;active.forEach(function(z){TIME_SLOTS.forEach(function(ts){var v=zd[z.id].times[ts.id]||0;if(v>maxVal)maxVal=v;});});
   var html='<div class="hm-grid" style="grid-template-columns:64px repeat('+TIME_SLOTS.length+',1fr)">';
   html+='<div class="hm-cell hm-head"></div>';
   TIME_SLOTS.forEach(function(ts){html+='<div class="hm-cell hm-head">'+ts.label+'</div>';});
@@ -321,8 +396,7 @@ function buildHeatmap(trips){
     html+='<div class="hm-cell hm-lbl">'+z.name.split(' ')[0]+'</div>';
     TIME_SLOTS.forEach(function(ts){var v=zd[z.id].times[ts.id]||0;var lvl=maxVal>0?Math.ceil((v/maxVal)*5):0;html+='<div class="hm-cell"><div class="hm-val hm-'+lvl+'">'+(v||'')+'</div></div>';});
   });
-  html+='</div>';
-  document.getElementById('heatmapSection').innerHTML=html;
+  html+='</div>';document.getElementById('heatmapSection').innerHTML=html;
 }
 function buildTips(trips){
   var tips=[];
@@ -331,7 +405,7 @@ function buildTips(trips){
     var bSlot=null,bAvg=0;Object.keys(tc).forEach(function(k){var a=tc[k].t/tc[k].c;if(a>bAvg){bAvg=a;bSlot=k;}});
     if(bSlot){var sl=TIME_SLOTS.filter(function(s){return s.id===bSlot;})[0];if(sl)tips.push({icon:'&#9201;',title:'افضل وقت لك: '+sl.label,desc:'بياناتك تثبت ان '+sl.range+' الاكثر ربحا بمتوسط '+bAvg.toFixed(0)+' ر.س.'});}
     var airT=trips.filter(function(t){return t.tripType==='airport';});
-    if(airT.length){var aAvg=airT.reduce(function(s,t){return s+t.price;},0)/airT.length;tips.push({icon:'&#9992;',title:'رحلات المطار = الذهب',desc:''+airT.length+' رحلة مطار بمتوسط '+aAvg.toFixed(0)+' ر.س. تواجد شمال المطار 5-7 ص.'});}
+    if(airT.length){var aAvg=airT.reduce(function(s,t){return s+t.price;},0)/airT.length;tips.push({icon:'&#9992;',title:'رحلات المطار = الذهب',desc:''+airT.length+' رحلة بمتوسط '+aAvg.toFixed(0)+' ر.س. تواجد شمال المطار 5-7 ص.'});}
     var excl=trips.filter(function(t){return t.tripType==='exclusive';});
     if(excl.length){var eAvg=excl.reduce(function(s,t){return s+t.price;},0)/excl.length;tips.push({icon:'&#128142;',title:'الرحلات الحصرية',desc:''+excl.length+' رحلة حصرية بمتوسط '+eAvg.toFixed(0)+' ر.س - لا ترفضها ابدا.'});}
     var wkd=trips.filter(function(t){return t.day!==5&&t.day!==6;});
@@ -342,7 +416,7 @@ function buildTips(trips){
       {icon:'&#128205;',title:'ابدا قرب المطار فجرا',desc:'شمال مطار الملك خالد 5-7 ص. رحلات 80-100 ر.س مع اقل منافسة.'},
       {icon:'&#128663;',title:'Black Corporate = اعلى عائد',desc:'احياء الملقا والنخيل صباحا مصدر رحلات الشركات الاعلى سعرا.'},
       {icon:'&#9201;',title:'تجنب 12-4 مساء',desc:'اضعف فترة في الرياض. ارتح وعد قبل المساء.'},
-      {icon:'&#128202;',title:'اضف رحلات لتوصيات ادق',desc:'5 رحلات كافية لبناء استراتيجية شخصية تماما لك.'}
+      {icon:'&#128202;',title:'اضف رحلات لتوصيات ادق',desc:'5 رحلات كافية لبناء استراتيجية شخصية لك.'}
     ];
   }
   document.getElementById('tipsSection').innerHTML=tips.map(function(t){return '<div class="tip" style="animation:fadeUp .4s ease both"><div class="tip-icon">'+t.icon+'</div><div><div class="tip-title">'+t.title+'</div><div class="tip-desc">'+t.desc+'</div></div></div>';}).join('');
@@ -362,6 +436,7 @@ function refreshAll(){
 }
 loadAndBuild();
 setInterval(loadAndBuild,60000);
+getGPS();
 </script>
 </body>
 </html>
